@@ -57,3 +57,15 @@ jobs:
           format: table
           exit-code: 0
           severity: CRITICAL,HIGH
+   conftest:
+    name: Politique sécurité Conftest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Conftest
+        run: |
+          wget https://github.com/open-policy-agent/conftest/releases/download/v0.46.0/conftest_0.46.0_Linux_x86_64.tar.gz
+          tar xzf conftest_0.46.0_Linux_x86_64.tar.gz
+          sudo mv conftest /usr/local/bin/
+      - name: Run Conftest
+        run: conftest test deployment.yaml
