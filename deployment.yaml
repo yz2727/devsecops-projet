@@ -18,4 +18,4 @@ spec:
         ports:
         - containerPort: 5000
         securityContext:
-          runAsRoot: true
+          runAsNonRoot: true
