@@ -8,7 +8,7 @@ on:
 
 jobs:
 
-
+  # ── Job 1 : Lint YAML ──
   lint-yaml:
     name: Lint YAML
     runs-on: ubuntu-latest
@@ -19,7 +19,7 @@ jobs:
       - name: Lint YAML files
         run: yamllint deployment.yaml
 
-
+  # ── Job 2 : Build Docker ──
   build:
     name: Build Docker Image
     runs-on: ubuntu-latest
@@ -28,7 +28,7 @@ jobs:
       - name: Build image
         run: docker build -t flask-app:latest ./app
 
-
+  # ── Job 3 : Scan dépendances avec Trivy ──
   trivy-deps:
     name: Scan dépendances
     runs-on: ubuntu-latest
@@ -42,6 +42,7 @@ jobs:
           format: table
           exit-code: 0
 
+  # ── Job 4 : Scan image Docker avec Trivy ──
   trivy-image:
     name: Scan image Docker
     runs-on: ubuntu-latest
@@ -57,7 +58,9 @@ jobs:
           format: table
           exit-code: 0
           severity: CRITICAL,HIGH
-   conftest:
+
+  # ── Job 5 : Conftest politique sécurité ──
+  conftest:
     name: Politique sécurité Conftest
     runs-on: ubuntu-latest
     steps:
